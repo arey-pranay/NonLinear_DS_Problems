@@ -79,9 +79,7 @@ class Solution {
     }
     public void deleteNode(GFG obj){
         //step 1 to exchange first and last elements.
-        int temp = obj.H[0];
         obj.H[0] = obj.H[obj.s];
-        obj.H[obj.s] = temp;
         obj.s--;
         obj.shiftDown(0);
         return;
