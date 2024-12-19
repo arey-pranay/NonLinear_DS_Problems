@@ -11,49 +11,41 @@ class MinHeap {
     int left(int i) { return (2 * i + 1); }
     int right(int i) { return (2 * i + 2); }
 
-    //Function to extract minimum value in heap and then to store 
-    //next minimum value at first index.
-   int extractMin() {
-    if (heap_size <= 0) {
+   
+   int extractMin() { 
+        if (heap_size <= 0) return -1;
+        //separately store the top value to return it later
+        int val = harr[0];
         
-        return -1;  // Or throw an exception
-    }
-    if (heap_size == 1) {
+        // put the last value at the top (swap)
+        harr[0] = harr[heap_size - 1];
         heap_size--;
-        return harr[0];
+        
+        // since the top is changed, we need to update the heap again top-to-bottom
+        MinHeapify(0);  
+        
+        return val;
     }
-    
-    // Standard extract min logic
-    int val = harr[0];
-    harr[0] = harr[heap_size - 1];
-    heap_size--;
-    MinHeapify(0);  // Restore heap property
-    return val;
-}
 
-
-    //Function to insert a value in Heap.
    void insertKey(int k) {
-    if (heap_size == capacity) {
-       
-        return;
+        // put the element at last index, and move up, and update the size
+        insertAndMoveUp(heap_size, k);
+        heap_size++;
     }
-    harr[heap_size] = k; // Add the new key at the end
-    heap_size++; // Increment heap size
-    decreaseKey(heap_size - 1, k); // Restore heap property by bubbling up
-}
 
-    //Function to delete a key at ith index.
+    
    void deleteKey(int i) {
-    decreaseKey(i, Integer.MIN_VALUE);  // Move key to the root
-    extractMin(); // Remove the root (min element)
-}
+       // to delete ith index, put the MIN_VALUE at ith index and put it at the appropriate position, which is the top position
+       insertAndMoveUp(i, Integer.MIN_VALUE); 
+       //after the MIN_VALUE reaches the top position, just remove it and heapify, by the extractMin function
+       extractMin(); 
+    }
 
 
-    //Function to change value at ith index and store that value at first index.
-    void decreaseKey(int i, int new_val) 
-    {
+    void insertAndMoveUp(int i, int new_val){
+        //assign new_val to ith position 
         harr[i] = new_val;
+        //and keep comparing that value to parents to make it reach the appropriate location / index
         while (i != 0 && harr[parent(i)] > harr[i]) {
             int temp = harr[i];
             harr[i] = harr[parent(i)];
@@ -71,10 +63,15 @@ class MinHeap {
         int smallest = i;
         if (l < heap_size && harr[l] < harr[i]) smallest = l;
         if (r < heap_size && harr[r] < harr[smallest]) smallest = r;
+        
+        // if a smaller child is present
         if (smallest != i) {
+            // swap the ith and smallest child
             int temp = harr[i];
             harr[i] = harr[smallest];
             harr[smallest] = temp;
+            
+            // call heapify again with the new smallest child
             MinHeapify(smallest);
         }
     }
