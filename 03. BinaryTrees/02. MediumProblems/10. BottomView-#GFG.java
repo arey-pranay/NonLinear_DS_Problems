@@ -1,4 +1,5 @@
 class Solution{
+    //bottom view java code for the gfg questio
     public ArrayList <Integer> bottomView(Node root){
         ArrayList<Integer> arr = new ArrayList<>();
         Queue<Pair> q = new LinkedList<>();
