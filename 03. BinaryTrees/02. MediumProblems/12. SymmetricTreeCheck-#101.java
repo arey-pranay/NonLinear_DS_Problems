@@ -13,6 +13,19 @@
  *     }
  * }
  */
+
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        return root==null || func(root.left,root.right);   
+    }
+    public boolean func(TreeNode L, TreeNode R){
+        if(L==null ^ R==null) return false; //sirf 1 hi hai valid node, mtlb structural asymmetry hai
+        if(L==null && R==null) return true; //agr dono hi khaali hai, mtlb (sub-)tree khtm
+        if(L.val != R.val) return false; //agr values same nhi hai, mtlb numerically asymmetric
+        return func(L.left,R.right) && func(L.right,R.left); //fir return true only if both left and right subtrees are symmetrical
+    }
+}
+
 class Solution {
     public boolean isSymmetric(TreeNode root) {
         if(root==null) return true;
