@@ -1,3 +1,4 @@
+//not working but good approach
 // class Solution {
 //     HashSet<Integer> left = new HashSet<>();
 //     HashSet<Integer> right = new HashSet<>();
@@ -96,6 +97,8 @@
 //         }
 //     }
 // }
+
+//working
 class Solution {
     // List to store the final result of nodes that are at distance k from the target node
     List<Integer> res = new ArrayList<>();
