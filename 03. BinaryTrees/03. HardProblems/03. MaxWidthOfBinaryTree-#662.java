@@ -1,4 +1,5 @@
 // /**
+// Gives TLE on some test cases sometimes
 //  * Definition for a binary tree node.
 //  * public class TreeNode {
 //  *     int val;
@@ -59,7 +60,7 @@
 // }
 
 import java.util.*;
-
+// Works correctly.
 class Solution {
     public int widthOfBinaryTree(TreeNode root) {
         if (root == null) return 0;
