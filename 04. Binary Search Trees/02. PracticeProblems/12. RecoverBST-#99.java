@@ -15,42 +15,35 @@
  */
 class Solution {
     public void recoverTree(TreeNode root) {
-        ArrayList<Integer> arr = new ArrayList<>();
+        ArrayList<TreeNode> arr = new ArrayList<>();
         inorder(arr,root);
-        int i1 = ftb(arr);
-        int i2 = btf(arr);
-        findAndSwap(i1,i2,root);
+        TreeNode i1 = findInArr(arr,true);
+        TreeNode i2 = findInArr(arr,false);
+        int temp = i1.val;
+        i1.val = i2.val;
+        i2.val = temp;
         return;
     }
-    public void inorder(ArrayList<Integer> arr,TreeNode root){
+    public void inorder(ArrayList<TreeNode> arr,TreeNode root){
         if(root==null) return;
         inorder(arr,root.left);
-        arr.add(root.val);
+        arr.add(root);
         inorder(arr,root.right);
         return;
     }
-    public int ftb(ArrayList<Integer> arr){
-        int curr=-1;
-        for(int i=0;i<arr.size()-1;i++){
-            curr = arr.get(i);
-            if(curr>arr.get(i+1)) return curr;
+    public TreeNode findInArr(ArrayList<TreeNode> arr, boolean front){
+        TreeNode curr= new TreeNode(-1);
+        if(front == true){
+            for(int i=0;i<arr.size()-1;i++){
+                curr = arr.get(i);
+                if(curr.val>arr.get(i+1).val) return curr;
+            }
+            return curr;
         }
-        return curr;
-    }
-    public int btf(ArrayList<Integer> arr){
-        int curr=-1;
         for(int i=arr.size()-1;i>0;i--){
             curr = arr.get(i);
-            if(curr<arr.get(i-1)) return curr;
+            if(curr.val<arr.get(i-1).val) return curr;
         }
         return curr;
-    }
-    public void findAndSwap(int a, int b, TreeNode root){
-        if(root==null) return;
-        if(root.val == a) root.val =b;
-        else if(root.val == b) root.val =a;
-        findAndSwap(a,b,root.left);
-        findAndSwap(a,b,root.right);
-        return;
     }
 }
