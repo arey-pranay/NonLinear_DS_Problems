@@ -14,14 +14,12 @@ class Solution {
         int index=0;
         while(!q.isEmpty()){
             int sz = q.size();
-            for(int i=0; i<sz; i++){
-                int curr = q.remove();
-                for(int j: graph.get(curr)){
-                    indegree[j]--;
-                    if(indegree[j]==0) q.add(j);
-                }
-                ans[index++] = curr;
+            int curr = q.remove();
+            for(int j: graph.get(curr)){
+                indegree[j]--;
+                if(indegree[j]==0) q.add(j);
             }
+            ans[index++] = curr;
         }
         if(index!=numCourses) return new int[]{};
         return ans;
