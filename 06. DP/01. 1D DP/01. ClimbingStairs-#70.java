@@ -1,3 +1,4 @@
+// memoization
 class Solution {
     public int climbStairs(int n) {
         // distinct case means, we reach or exceed n
@@ -13,4 +14,17 @@ class Solution {
         return memo[curr];
     }
     
+}
+
+// tabulation
+class Solution {
+    public int climbStairs(int n) {
+        // distinct case means, we reach or exceed n
+        // to go towards n, we can do plus 1 or plus 2
+        int[] memo = new int[n+1];
+        memo[0]=1;
+        memo[1] = 1;
+        for(int i =2;i<=n;i++) memo[i]= memo[i-2]+memo[i-1];                
+        return memo[n];    
+    }
 }
